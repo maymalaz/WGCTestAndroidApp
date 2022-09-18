@@ -46,7 +46,7 @@ class AlbumsActivity: AppCompatActivity() {
         binding.recycleTitreAlbum.adapter = titreListAdapter
         binding.recycleTitreAlbum.layoutManager= LinearLayoutManager(this)
 
-        val a= Album(1,1,"officiis exercitationem quia","","")
+        val a= Album(1,2,"officiis exercitationem quia","","")
         Titlelist!!.add(a)
         Titlelist!!.add(a)
         Titlelist!!.add(a)
