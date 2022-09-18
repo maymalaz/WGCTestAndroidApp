@@ -15,11 +15,9 @@ class AlbumsRepository @Inject constructor(
         emit(DataState.Loading(null))
 
         val result = albumsEndPoints.getListAlbums()
-        Log.d("titles",result.toString())
 
         if (result.success) {
             emit(DataState.Success(result.data!!.map { it.toAlbums() }))
-            Log.d("titles&",result.data.toString())
         }
 
         else {

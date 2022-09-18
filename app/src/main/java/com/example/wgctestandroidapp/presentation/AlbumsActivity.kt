@@ -5,21 +5,20 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.wgctestandroidapp.R
 import com.example.wgctestandroidapp.data.common.utils.logD
 import com.example.wgctestandroidapp.databinding.ActivityMainBinding
 import com.example.wgctestandroidapp.domain.Album
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity: AppCompatActivity() {
+class AlbumsActivity: AppCompatActivity() {
     private val TAG = "MainActivityTag"
 
-    private val titreListAdapter by lazy { TitleListAdapter() }
+    private val titreListAdapter by lazy { AlbumListAdapter() }
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<AlbumsViewModel>()
 
-    var list: MutableList<Album> = ArrayList()
+    var Titlelist: MutableList<Album> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +30,13 @@ class MainActivity: AppCompatActivity() {
         viewModel.getTitlesScreenState.observe(this) {
             handleState(it)
         }
+        viewModel._albums.observe(this){
+
+
+            Log.d(TAG, it.toString())
+        }
+
+        viewModel.changeScreenState(TitleListAlbumScreenState.GetAlbumsInProgress())
 
 
     }
@@ -41,15 +47,14 @@ class MainActivity: AppCompatActivity() {
         binding.recycleTitreAlbum.layoutManager= LinearLayoutManager(this)
 
         val a= Album(1,1,"officiis exercitationem quia","","")
-        list!!.add(a)
-        list!!.add(a)
-        list!!.add(a)
-        list!!.add(a)
+        Titlelist!!.add(a)
+        Titlelist!!.add(a)
+        Titlelist!!.add(a)
+        Titlelist!!.add(a)
 
-        titreListAdapter.submitList(list)
+        titreListAdapter.submitList(Titlelist)
 
     }
-
 
     private fun handleState(state: TitleListAlbumScreenState) {
         when (state) {
@@ -63,7 +68,6 @@ class MainActivity: AppCompatActivity() {
                 logD("---->>> In TitleListInProgress")
 
             }
-
             is TitleListAlbumScreenState.GetAlbumsFailed -> {
                 logD("---->>> In TitleListFailed")
             }
@@ -71,7 +75,8 @@ class MainActivity: AppCompatActivity() {
                 logD("---->>> In OtherError")
             }
             is TitleListAlbumScreenState.GetAlbumsSuccessful -> {
-                logD("---->>> In TitleListSuccessful" + state.titreList)
+                logD("---->>> In TitleListSuccessful" + state.titleList)
+
 
             }
         }

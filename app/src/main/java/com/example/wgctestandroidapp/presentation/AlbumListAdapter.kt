@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wgctestandroidapp.databinding.ItemTitreAlbumsListBinding
 import com.example.wgctestandroidapp.domain.Album
 
-class TitleListAdapter :
-    ListAdapter<Album, TitleListAdapter.AlbumViewHolder>(Companion) {
+class AlbumListAdapter :
+    ListAdapter<Album, AlbumListAdapter.AlbumViewHolder>(Companion) {
 
 
     private var context: Context? = null

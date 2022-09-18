@@ -1,6 +1,5 @@
 package com.example.wgctestandroidapp.presentation
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.wgctestandroidapp.data.repository.AlbumsRepository
 import com.example.wgctestandroidapp.domain.Album
@@ -23,14 +22,15 @@ class AlbumsViewModel @Inject constructor(private val repositoryAlbums: AlbumsRe
     val getTitlesScreenState: LiveData<TitleListAlbumScreenState>
         get() = this._getTitlesScreenState
 
-    private val albumsLiveData = MutableLiveData<List<String>>()
-    val _albums: LiveData<List<String>> = albumsLiveData
+    private val albumsLiveData = MutableLiveData<List<Album>>()
+    val _albums: LiveData<List<Album>> = albumsLiveData
 
 
 
     fun changeScreenState(newState: TitleListAlbumScreenState) {
         when (newState) {
             TitleListAlbumScreenState.Idle -> {
+
             }
             TitleListAlbumScreenState.NoInternet-> {
             }
@@ -43,9 +43,8 @@ class AlbumsViewModel @Inject constructor(private val repositoryAlbums: AlbumsRe
                         when (it) {
                             is DataState.Success -> {
                                 _getTitlesScreenState.value =
-                                    TitleListAlbumScreenState.GetAlbumsSuccessful(it.data!! as List<String>)
-                                Log.d("Titres1", it.data.toString())
-                                albumsLiveData.value= it.data as List<String>
+                                    TitleListAlbumScreenState.GetAlbumsSuccessful(it.data!! as List<Album>)
+                                albumsLiveData.value= it.data as List<Album>
 
                             }
                             is DataState.Error -> {
